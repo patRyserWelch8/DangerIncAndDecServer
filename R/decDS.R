@@ -4,8 +4,12 @@
 #'@export
 decDS <- function()
 {
-   outcome <- FALSE
-   if(are.settings.and.env.correct())
+   if(!is.env.correct())
+   {
+      set.env()
+   }
+
+   if(is.env.correct())
    {
      env <- get.env()
      if(exists("value", where = env))
@@ -17,8 +21,10 @@ decDS <- function()
      {
         assign("value",0,envir = env)
      }
-     outcome <- exists("value", where = env)
+     return(exists("value", where = env))
    }
-
-   return(outcome)
+   else
+   {
+      stop("the environment could not be created")
+   }
 }
