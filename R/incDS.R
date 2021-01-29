@@ -13,8 +13,15 @@ incDS <- function()
    if(is.env.correct())
    {
      env <- get.env()
+
+
      if(exists("value", where = env))
      {
+        if(!bindingIsActive("value",env = env))
+        {
+           unlockBinding(sym = "value", env = env)
+        }
+
         value <- get("value", envir = env)
         assign("value", value + 1, envir = env)
      }
