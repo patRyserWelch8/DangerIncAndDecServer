@@ -1,12 +1,19 @@
-#'@name are.settings.and.env.correct
+#'@name is.env.correct
 #'@title chech the settings and environment exists
 #'@return TRUE - fine. False - not fine
-are.settings.and.env.correct <- function()
+is.env.correct <- function()
 {
   return(exists(".DangerEnv", envir = globalenv()))
 }
 
-
+#'@name set.env
+#'@title set the package env
+#'@return  the environment
+#'@note returns an error if the settings are not correct.
+set.env <- function()
+{
+  assign('.DangerEnv', new.env(), envir = parent.env(environment()))
+}
 
 #'@name get.env
 #'@title get the package env
@@ -14,7 +21,7 @@ are.settings.and.env.correct <- function()
 #'@note returns an error if the settings are not correct.
 get.env <- function()
 {
-  if(are.settings.and.env.correct())
+  if(is.env.correct())
   {
     return(get(".DangerEnv", envir = globalenv()))
   }
